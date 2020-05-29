@@ -1,7 +1,6 @@
 const keys = require("../config/keys");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-
 const mongoose = require('mongoose');
 const User = mongoose.model('users');
 
@@ -13,43 +12,37 @@ const User = mongoose.model('users');
 serializeUser is used to store id of the user
 in the session-*/
 
-passport.serializeUser(function (user,done){
+passport.serializeUser(function (user, done) {
     console.log("serializeUSer")
-    done(null,user._id);
+    done(null, user._id);
 });
 
- /*--deserializeUser is used to retrieve the user details
+/*--deserializeUser is used to retrieve the user details
 of the user by fetching the id from the session and then
 fetching the whole user details from your database.--*/
- passport.deserializeUser(function(id,done){
-      User.findById(id).then((user)=>{
-            done(null,user);
-     });
- })
+passport.deserializeUser(function (id, done) {
+    User.findById(id).then((user) => {
+        done(null, user);
+    });
+})
 
 passport.use(new GoogleStrategy({
     clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,
     callbackURL: "/auth/google/callback", // please don't forget to begin the URL with "/"
-    proxy:true,  // we added to tell to google to trust any request that was sent over a proxy
-                 // so it will be always https .
-}, (accessToken, refreshToken, profile, done) => {
+    proxy: true,  // we added to tell to google to trust any request that was sent over a proxy
+                  // so it will be always https .
+}, async (accessToken, refreshToken, profile, done) => {
 
 
-    User.findOne({googleId: profile.id})
-        .then((document) => {
-                if (document) {
-                    console.log("document: ", document)
-                    done(null, document);
-                } else {
-                    new User({googleId: profile.id}).save()
-                        .then(user => {
-                            done(null,user);
-                        });
+    const document = await User.findOne({googleId: profile.id})
 
-                }
-            }
-        )
+    if (document) {
+        return done(null, document);
+    }
+    const user = await new User({googleId: profile.id}).save();
+           return  done(null, user);
+
 
 }));
 
