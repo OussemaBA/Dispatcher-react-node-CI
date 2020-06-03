@@ -35,8 +35,11 @@ module.exports = (app) => {
         //!! so we are counting on mongoodb logic that we have written
 
 
-        const p = new Path('/api/surveys/:surveyId/:choice');
+
+
+        const p = new Path('.herokuapp.com/api/surveys/webhooks');
         const events = _.chain(req.body)
+            console.log("req.body:",req.body);
             .map(({url, email}) => {
                console.log("url:",url);
                 const match = p.test(new URL(url).pathname);
