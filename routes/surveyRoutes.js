@@ -22,8 +22,8 @@ module.exports = (app) => {
     })
 
 
-    app.get("/api/surveys/:surveyId/:choice", (req, res) => {
-        res.send("thanks For Votinghe ! ");
+    app.get("//api/surveys/:surveyId/:choice", (req, res) => {
+        res.send("thanks For Voting ! ");
     });
 
     app.post('/api/surveys/webhooks', (req, res) => {
@@ -37,7 +37,7 @@ module.exports = (app) => {
 
 
 
-        const p = new Path('.herokuapp.com/api/surveys/webhooks');
+        const p = new Path("https://sleepy-cove-75148.herokuapp.com//api/surveys/:surveyId/:choice");
 
         const events = _.chain(req.body)
             .map(({url, email}) => {
