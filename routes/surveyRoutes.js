@@ -38,8 +38,9 @@ module.exports = (app) => {
 
 
         const p = new Path('.herokuapp.com/api/surveys/webhooks');
+        console.log("req.body:",req.body);
+
         const events = _.chain(req.body)
-            console.log("req.body:",req.body);
             .map(({url, email}) => {
                console.log("url:",url);
                 const match = p.test(new URL(url).pathname);
