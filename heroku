@@ -1,0 +1,37 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {   /* tells heroku what version to use  for our project
+    "node": "8.1.1",
+    "npm": "5.4.1"
+  },
+    "scripts": {
+      "start": "node index.js"   /* tell heroku what cmd to execute to start the server*/
+    },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
+
+
+/*--set up a git commit base !! managed by heroku!! */
+1) git init
+2) git add .
+3) git commit "initial commit"
+
+/*--deploy to heroku**---
+ 1) heroku login
+ 2) heroku create
+ 3) git remote add heroku
+ 4) git push heroku master
+
+making some changes to the project--*
+
+ 1) git add .
+ 2) git commit -m "some message"
+ 3) git push heroku master
+

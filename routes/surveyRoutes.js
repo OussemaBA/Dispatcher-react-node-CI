@@ -38,6 +38,7 @@ module.exports = (app) => {
         const p = new Path('/api/surveys/:surveyId/:choice');
         const events = _.chain(req.body)
             .map(({url, email}) => {
+               console.log("req.body:",req.body);
                 const match = p.test(new URL(url).pathname);
                 // return json { surveyId:"blabla" , choice:"bla"} if both values exist
                 if (match)
