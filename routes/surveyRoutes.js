@@ -23,7 +23,7 @@ module.exports = (app) => {
 
 
     app.get("/api/surveys/:surveyId/:choice", (req, res) => {
-        res.send("thanks For Voting ! ");
+        res.send("thanks For Votinghe ! ");
     });
 
     app.post('/api/surveys/webhooks', (req, res) => {
@@ -38,7 +38,7 @@ module.exports = (app) => {
         const p = new Path('/api/surveys/:surveyId/:choice');
         const events = _.chain(req.body)
             .map(({url, email}) => {
-               console.log("req.body:",req.body);
+               console.log("url:",url);
                 const match = p.test(new URL(url).pathname);
                 // return json { surveyId:"blabla" , choice:"bla"} if both values exist
                 if (match)
