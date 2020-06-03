@@ -5,8 +5,9 @@ import * as actions from "../actions/index";
 /**Components**/
 import Header from "./Header";
 import Landing from "./Landing";
-
-const Dashboard = () => <h2> DASHBOARD</h2>
+import Dashboard from "./Dashboard";
+import SurveyNew from "./survey/SurveyNew";
+/**END COMPONENTS**/
 
 class App extends Component {
 
@@ -27,7 +28,7 @@ class App extends Component {
                         <Header/>
                         <Route exact path="/survey" component={Dashboard}/>
                         <Route exact path="/" component={Landing}/>
-
+                        <Route exact path="/survey/new" component={SurveyNew}/>
                     </div>
                 </BrowserRouter>
             </div>
@@ -36,5 +37,6 @@ class App extends Component {
 }
 
 export default connect(null, actions)(App);  //component connected to the store
+//null because we didn't define mStateToProps function
 // all different actions we want to wire up
 // whe choose all (*) because this this the main Component so all actions must be wired up

@@ -11,8 +11,8 @@ const passport = require("passport");
 // available under the req.body property.
 const bodyParser=require("body-parser");
 
-
 require("./models/User");
+require("./models/Survey");
 require("./services/passport");
 /*---mongoose completely optional : it help dealing with mongodb lot easier---*/
 //npm install --save mongoose
@@ -39,7 +39,7 @@ app.use(passport.session());
 
 require("./routes/authRoutes")(app) //* --> 1) authRoutes =require(***)  2)   authRoutes(app)
 require('./routes/billingRoutes')(app)//--> make the routes available to the node js server
-
+require('./routes/surveyRoutes')(app)
 
 //this will handle routes in production cuz react proxy and (dev server) does not exist
 if(process.env.NODE_ENV==='production'){

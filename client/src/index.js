@@ -8,7 +8,9 @@ import "materialize-css/dist/css/materialize.min.css";
 import reduxThunk from "redux-thunk";
 
 
-        //redux store -> combineReducers->{all reducers}
+
+
+//redux store -> combineReducers->{all reducers}
 const store = createStore(reducers, [], applyMiddleware(reduxThunk));
 // provide all reducers exits in the App to createStore()
 
@@ -27,8 +29,6 @@ ReactDom.render(
 
     </div>
     , document.querySelector('#root'));
-
-
 
 
 /*
