@@ -37,13 +37,13 @@ module.exports = (app) => {
 
 
 
-        const p = new Path('.herokuapp.com/api/surveys/webhooks');
-        console.log("req.body:",req.body);
 
         const events = _.chain(req.body)
             .map(({url, email}) => {
-               console.log("url:",url);
                 const match = p.test(new URL(url).pathname);
+                    console.log("match:",match)
+                    console.log("url inside :",url)
+                    console.log("email inside :",email)
                 // return json { surveyId:"blabla" , choice:"bla"} if both values exist
                 if (match)
                     return {surveyId: match.surveyId, choice: match.choice, email}
