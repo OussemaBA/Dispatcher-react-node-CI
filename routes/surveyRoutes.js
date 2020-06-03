@@ -37,7 +37,7 @@ module.exports = (app) => {
 
 
 
-        const p = new Path("https://sleepy-cove-75148.herokuapp.com//api/surveys/:surveyId/:choice");
+        const p = new Path("//api/surveys/:surveyId/:choice");
 
         const events = _.chain(req.body)
             .map(({url, email}) => {
