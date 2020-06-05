@@ -21,6 +21,8 @@ module.exports = (app) => {
         res.send(surveys);
     })
 
+    // i added " extra /" for production when using heroku  whenever i use sendgrid webhooks
+    //
 
     app.get("//api/surveys/:surveyId/:choice", (req, res) => {
         res.send("thanks For Voting ! ");
@@ -36,7 +38,7 @@ module.exports = (app) => {
 
 
 
-
+        // i added " extra /" for production when using heroku  whenever i use sendgrid webhooks
         const p = new Path("//api/surveys/:surveyId/:choice");
 
         const events = _.chain(req.body)
