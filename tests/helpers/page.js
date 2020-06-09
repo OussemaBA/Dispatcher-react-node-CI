@@ -46,7 +46,6 @@ class CustomPage {
             'value': hash
 
         }];
-        await page.goto("http://localhost:3000")
         await this.page.setCookie(...cookies);
         await this.page.goto("http://localhost:3000/survey");
         await this.page.waitFor('a[href="/api/logout"]');

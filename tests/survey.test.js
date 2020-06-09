@@ -1,9 +1,9 @@
 const Page = require("./helpers/page");
 
-var page;
+let page;
 
 
-//describe : regroupe certain test cases that have the same unti.js  "conditions"
+//describe : regroupe certain test cases that have the same test  "conditions"
 describe("when Logged in to the App", () => {
     beforeEach(async () => {
 
