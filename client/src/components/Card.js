@@ -14,8 +14,8 @@ const Card = ({survey}) =>
 
                 </div>
                 <div className="card-action">
-                    <a href="#">YES :{survey.yes}</a>
-                    <a href="#">NO :{survey.no}</a>
+                    <a>YES :{survey.yes}</a>
+                    <a>NO :{survey.no}</a>
                 </div>
             </div>
         </div>
