@@ -1,12 +1,11 @@
 const {Path} = require('path-parser');
-
+const hashCleaner =require("../middleware/hashCleaner");
 const requireLogin = require('../middleware/requireLogin');
 const requireCredits = require('../middleware/requireCredits');
 const Mailer = require("../services/Mailer");
 const surveyTemplate = require("../emailTemplates/emailTemplate");
 const _ = require("lodash");
 const {URL} = require('url');
-
 //get around a problem if i used a testing platform
 const mongoose = require("mongoose");
 const Survey = mongoose.model("surveys");  // define a variable with "surveys" table
@@ -14,15 +13,14 @@ const Survey = mongoose.model("surveys");  // define a variable with "surveys" t
 module.exports = (app) => {
 
     app.get('/api/surveys/', requireLogin, async (req, res) => {
-
         const surveys = await Survey.find({_user: req.user.id})
-            .select({recipients: false});
-
+            .select({recipients: false})
+            .cache({key:req.user.id})
         res.send(surveys);
     })
 
-    // i added " extra /" for production when using heroku  whenever i use sendgrid webhooks
-    //
+    // i added " extra /" for production when using heroku_travis  whenever i use sendgrid webhooks
+
 
     app.get("//api/surveys/:surveyId/:choice", (req, res) => {
         res.send("thanks For Voting ! ");
@@ -37,19 +35,14 @@ module.exports = (app) => {
         //!! so we are counting on mongoodb logic that we have written
 
 
-
-        // i added " extra /" for production when using heroku  whenever i use sendgrid webhooks
-        const p = new Path("//api/surveys/:surveyId/:choice");
+        //!!!! i added " extra /" for production when using heroku_travis  whenever i use sendgrid webhooks
+        const p = new Path("/api/surveys/:surveyId/:choice");
 
         const events = _.chain(req.body)
             .map(({url, email}) => {
-               console.log("url:",url);
+                console.log("url:", url);
                 const match = p.test(new URL(url).pathname);
-                console.log("match:",match)
-                console.log("url inside :",url)
-                console.log("email inside :",email)
-                console.log(" match.surveyId  :", match.surveyId)
-                console.log("match.choice inside :",match.choice)
+
                 // return json { surveyId:"blabla" , choice:"bla"} if both values exist
                 if (match)
                     return {surveyId: match.surveyId, choice: match.choice, email}
@@ -81,7 +74,7 @@ module.exports = (app) => {
     });
 
 
-    app.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
+    app.post('/api/surveys', requireLogin, requireCredits,hashCleaner, async (req, res) => {
         const {title, body, recipients, subject} = req.body;
 
         const survey = new Survey({

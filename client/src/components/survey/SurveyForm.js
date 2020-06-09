@@ -19,7 +19,7 @@ class SurveyNew extends Component {
             _.map(formFields, field => {
                 return (
 
-                    <Field type="text" name={field.name} component={SurveyField} label={field.label}/>
+                    <Field type="text" name={field.name} component={SurveyField} label={field.label} styling={field.styling}/>
 
                 )
             })

@@ -10,11 +10,13 @@ class SurveysList extends Component {
         //mapStateToProps --> state preprocessing if it is so complexe and make redux state available  in props
         this.props.fetchSurveys();
     }
-            //alwaus function make a return statement
-    renderContent() {
-      return   this.props.surveys.reverse().map(survey => (
 
-                <Card survey={survey}/>
+    //alwaus function make a return statement
+    renderContent() {
+        return this.props.surveys.reverse().map(survey => (
+
+                <Card key={survey.id} survey={survey}/>
+
             )
         )
     }

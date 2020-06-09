@@ -1,0 +1,5 @@
+1) git remote -v : see all origins in my local pc
+
+2) git remote remove origin: delete repo named "origin" in my pc
+
+3) git remote add origin blablabla : add a new  origin named "blablalba"
